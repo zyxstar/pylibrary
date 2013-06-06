@@ -1,0 +1,324 @@
+﻿
+.table-wrapper {
+    clear: both;
+    width: 97%;
+    margin: 0 0 0 5px;
+    background: #E0E0E0;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E9E9E9', endColorstr='#D7D7D7');
+    background: -webkit-gradient(linear, left top, left bottom, from(#E9E9E9), to(#D7D7D7));
+    background: -moz-linear-gradient(top,  #E9E9E9,  #D7D7D7);
+    padding: 8px;
+    -webkit-box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
+    -moz-box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
+    -o-box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
+    -khtml-box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
+    box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
+    -webkit-border-radius: 10px; /*-moz-border-radius: 10px; firefox doesn't allow rounding of tables yet*/
+    -o-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.table-wrapper table {
+    width: 100%;
+}
+
+.table-header {
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 29px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.table-row td {
+    font-family: "Helvetica Neue" , Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    text-align: left;
+    text-decoration: none;
+    font-weight: normal;
+    color: #858585;
+    padding: 5px;
+    border-left: 1px solid #ccc;
+    -khtml-box-shadow: 0px 1px 0px #B2B3B5;
+    -webkit-box-shadow: 0px 1px 0px #B2B3B5;
+    -moz-box-shadow: 0px 1px 0px #ddd;
+    -o-box-shadow: 0px 1px 0px #B2B3B5;
+    box-shadow: 0px 1px 0px #B2B3B5;
+}
+
+
+
+.table-wrapper tr th {
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.table-wrapper thead tr th:first-child {
+    -khtml-border-top-left-radius: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -o-border-top-left-radius: 8px; /*-moz-border-radius-topleft: 8px; firefox doesn't allow rounding of tables yet*/
+    border-top-left-radius: 8px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.table-wrapper tr td:first-child {
+    border: none;
+}
+
+.table-wrapper thead tr th:last-child {
+    -khtml-border-top-right-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -o-border-top-right-radius: 8px; /*-moz-border-radius-topright: 8px; firefox doesn't allow rounding of tables yet*/
+    border-top-right-radius: 8px;
+}
+
+.table-wrapper tr {
+    background: #fff;
+}
+
+.table-wrapper tr:nth-child(odd) {
+    background: #F3F3F3;
+}
+
+.table-wrapper tr:nth-child(even) {
+    background: #fff;
+}
+
+.table-wrapper tr:last-child td:first-child {
+    -khtml-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -o-border-bottom-left-radius: 8px; /*-moz-border-radius-bottomleft: 8px; firefox doesn't allow rounding of tables yet*/
+    border-bottom-left-radius: 8px;
+}
+
+.table-wrapper tr:last-child td:last-child {
+    -khtml-border-bottom-right-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    -o-border-bottom-right-radius: 8px; /*-moz-border-radius-bottomright: 8px; firefox doesn't allow rounding of tables yet*/
+    border-bottom-right-radius: 8px;
+}
+
+
+a.fern, input.fern, ul.fern li a, th.fern {
+    background: #749B05;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8FB209', endColorstr='#749B05');
+    background: -webkit-gradient(linear, left top, left bottom, from(#8FB209), to(#749B05));
+    background: -moz-linear-gradient(top, #8FB209,  #749B05);
+    color: #2C4601;
+    text-shadow: 0px 1px 0px #7FA846;
+    -webkit-box-shadow: inset 0px 1px 0 #396F01;
+    -moz-box-shadow: inset 0px 1px 0 #396F01;
+    -o-box-shadow: inset 0px 1px 0 #396F01;
+    -khtml-box-shadow: inset 0px 1px 0 #396F01;
+    box-shadow: inset 0px 1px 0 #396F01;
+}
+
+a.fern:hover, input.fern:hover, ul.fern li a:hover {
+    background: #5B9502;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#81AC06', endColorstr='#468801');
+    background: -webkit-gradient(linear, left top, left bottom, from(#81AC06), to(#468801));
+    background: -moz-linear-gradient(top,  #81AC06,  #468801);
+    color: #2C4601;
+}
+
+a.fern:active, input.fern:active, ul.fern li a:active {
+    color: #1F3100;
+    background: #518F02;
+    -webkit-box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+    -moz-box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+    -o-box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+    -khtml-box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+    box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+}
+
+
+
+ul.tabs li.fern a {
+    border-right: 1px solid #396F01;
+}
+
+input.login-fern, input.login-fern:hover, input.login-fern:active {
+    background: url('images/btn-login-fern.png') no-repeat center;
+    text-indent: -5000px;
+}
+
+input.login-fern:hover, input.fern-glow:focus {
+    -webkit-box-shadow: inset 0px 1px 1px #396F01, inset 0px -1px 1px #396F01, 0 0 8px #396F01;
+    -moz-box-shadow: inset 0px 1px 1px #396F01, inset 0px -1px 1px #396F01, 0 0 8px #396F01;
+    -o-box-shadow: inset 0px 1px 1px #396F01, inset 0px -1px 1px #396F01, 0 0 8px #396F01;
+    -khtml-box-shadow: inset 0px 1px 1px #396F01, inset 0px -1px 1px #396F01, 0 0 8px #396F01;
+    box-shadow: inset 0px 1px 1px #396F01, inset 0px -1px 1px #396F01, 0 0 8px #396F01;
+}
+
+
+
+input.login-fern:active {
+    -webkit-box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+    -moz-box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+    -o-box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+    -khtml-box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+    box-shadow: inset 0px 2px 3px #234500, inset 0px 1px 0 #396F01;
+}
+
+th.fern {
+    border-left: 1px solid #396F01;
+}
+
+th.fern:first-child {
+    border: none;
+}
+
+/* Light */
+
+a.light, input.light, ul.light li a, th.light {
+    background: #F5F5F5;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#ECECEC');
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#ECECEC));
+    background: -moz-linear-gradient(top,  #FFFFFF,  #ECECEC);
+    color: #858585;
+    text-shadow: 0px 1px 0px #fff;
+    -webkit-box-shadow: inset 0px 1px 0 #fff, 0px 1px 0 #B5B5B5;
+    -moz-box-shadow: inset 0px 1px 0 #fff, 0px 1px 0 #B5B5B5;
+    -o-box-shadow: inset 0px 1px 0 #fff, 0px 1px 0 #B5B5B5;
+    -khtml-box-shadow: inset 0px 1px 0 #fff, 0px 1px 0 #B5B5B5;
+    box-shadow: inset 0px 1px 0 #fff, 0px 1px 0 #B5B5B5;
+}
+
+a.light:hover, input.light:hover, ul.light li a:hover {
+    background: #fff;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#F7F7F7');
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#F7F7F7));
+    background: -moz-linear-gradient(top,  #FFFFFF,  #F7F7F7);
+    color: #717171;
+}
+
+a.light:active, input.light:active, ul.light li a:active {
+    background: #eee;
+    color: #717171;
+    -webkit-box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+    -moz-box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+    -o-box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+    -khtml-box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+    box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+}
+
+ul.tabs li.light a {
+    border-right: 1px solid #D9D9D9;
+}
+ul.menu li.light a {
+    border-bottom: 1px solid #D9D9D9;
+}
+
+input.login-light {
+    -webkit-box-shadow: inset 0px 1px 1px #9A9A9A;
+    -moz-box-shadow: inset 0px 1px 1px #9A9A9A;
+    -o-box-shadow: inset 0px 1px 1px #9A9A9A;
+    -khtml-box-shadow: inset 0px 1px 1px #9A9A9A;
+    box-shadow: inset 0px 1px 1px #9A9A9A;
+    background: url('images/btn-login-light.png') no-repeat center;
+    text-indent: -5000px;
+}
+
+input.login-light:hover, input.login-light:active {
+    background: url('images/btn-login-light.png') no-repeat center;
+}
+
+input.login-light:hover {
+    -webkit-box-shadow: inset 0px 1px 1px #4A97BA, inset 0px -1px 1px #4A97BA, 0 0 8px #4A97BA;
+    -moz-box-shadow: inset 0px 1px 1px #4A97BA, inset 0px -1px 1px #4A97BA, 0 0 8px #4A97BA;
+    -o-box-shadow: inset 0px 1px 1px #4A97BA, inset 0px -1px 1px #4A97BA, 0 0 8px #4A97BA;
+    -khtml-box-shadow: inset 0px 1px 1px #4A97BA, inset 0px -1px 1px #4A97BA, 0 0 8px #4A97BA;
+    box-shadow: inset 0px 1px 1px #4A97BA, inset 0px -1px 1px #4A97BA, 0 0 8px #4A97BA;
+}
+
+input.login-light:active {
+    -webkit-box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+    -moz-box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+    -o-box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+    -khtml-box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+    box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+}
+
+th.light {
+    color: #5B5B5B;
+}
+
+/*Fix light styles*/
+
+.win.chrome a.light:hover, .win.chrome input.light:hover, .win.chrome ul.light li a:hover {
+    -webkit-box-shadow: none;
+    border-top: 1px solid #FFF;
+}
+.win.chrome input.login-light:hover, .win.chrome input.login-light:active {
+    -webkit-box-shadow: none;
+    border: 1px solid #4A97BA;
+}
+.win.chrome input.login-light:active {
+    -webkit-box-shadow: none;
+    border: 1px solid #B5B5B5;
+}
+.win.chrome a.light, .win.chrome input.light, .win.chrome ul.light li a, .win.chrome th.light {
+    -webkit-box-shadow: none;
+    border-top: 1px solid #FFF;
+}
+.win.chrome a.light:active, .win.chrome input.light:active, .win.chrome ul.light li a:active {
+    -webkit-box-shadow: none;
+    border-top: 1px solid #aaa;
+}
+.win.chrome input.login-light {
+    -webkit-box-shadow: none;
+    border-top: 1px solid #B2B3B5;
+}
+
+tfoot th {
+    border: none;
+    background-color: #D7D7D7;
+    font-size: 14px;
+}
+
+
+tr.selected {
+    background-color: #FBEC88 !important;
+}
+tr.selected td {
+    background-color: #FBEC88 !important;
+}
+
+.warn {
+    color: #DE564B !important;
+    font-weight: bold !important;
+}
+
+td.left {
+    text-align: left;
+}
+td.right {
+    text-align: right;
+}
+td.center {
+    text-align: center;
+}
+td.ok {
+    text-align: center;
+}
+td.ok em {
+    display: inline-block;
+    height: 10px;
+    width: 15px;
+    margin: 0 0 0 3px;
+    background: url(/static/images/icon.png) no-repeat -16px 0px;
+}
+td.fail {
+    text-align: center;
+}
+td.fail em {
+    display: inline-block;
+    height: 10px;
+    width: 15px;
+    margin: 0 0 0 3px;
+    background: url(/static/images/icon.png) no-repeat 1px 0px;
+}

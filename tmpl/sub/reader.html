@@ -1,0 +1,64 @@
+<div id="panelreader" class="panel">
+    <label for="search_readercardno">
+        会员卡号:</label>
+    <br />
+    <input type="text" id="search_readercardno" class="search-field" />
+    <input type="button" id="btn_getreader" class="btn" value="查找" />
+    <input type="button" id="btn_resetreader" class="btn" value="重置" />
+    <span id="reader_desc"></span>
+    <form id="reader_result" name="reader_result" action="">
+    <ul class="result">
+        <li>
+            <label id="lab_readername" for="txt_readername">
+                姓名</label>
+            <input type="text" id="txt_readername" readonly="readonly" />
+        </li>
+        <li>
+            <label id="lab_orgcd_r" for="txt_orgcd_r">
+                单位</label>
+            <input type="text" id="txt_orgcd_r" readonly="readonly" />
+        </li>
+        <li class="short">
+            <label id="lab_gender_r" for="txt_gender_r">
+                性别</label>
+            <input type="text" id="txt_gender_r" readonly="readonly" />
+            <label id="lab_typname" for="txt_typname" class="shortlabel">
+                类型</label>
+            <input type="text" id="txt_typname" readonly="readonly" />
+        </li>
+        <li class="short">
+            <label id="lab_cardsts_r" for="txt_cardsts_r">
+                状态</label>
+            <input type="text" id="txt_cardsts_r" readonly="readonly" />
+            <label id="lab_expdt" for="txt_expdt" class="shortlabel">
+                失效日期</label>
+            <input type="text" id="txt_expdt" readonly="readonly" />
+        </li>
+        <li class="short">
+            <label id="lab_typquantity" for="txt_typquantity">
+                typquantity</label>
+            <input type="text" id="txt_typquantity" readonly="readonly" />
+            <label id="lab_quantity" for="txt_quantity" class="shortlabel">
+                quantity</label>
+            <input type="text" id="txt_quantity" readonly="readonly" />
+        </li>
+        <li class="short">
+            <label id="lab_typdeposit" for="txt_typdeposit">
+                typdeposit</label>
+            <input type="text" id="txt_typdeposit" readonly="readonly" />
+            <label id="lab_deposit" for="txt_deposit" class="shortlabel">
+                deposit</label>
+            <input type="text" id="txt_deposit" readonly="readonly" />
+        </li>
+        <li class="short">
+            <label id="lab_typrenewtimes" for="txt_typrenewtimes">
+                typrenewtimes</label>
+            <input type="text" id="txt_typrenewtimes" readonly="readonly" />
+            <label id="lab_typrenewterm" for="txt_typrenewterm" class="shortlabel">
+                typrenewterm</label>
+            <input type="text" id="txt_typrenewterm" readonly="readonly" />
+        </li>
+        <li class="clear"></li>
+    </ul>
+    </form>
+</div>

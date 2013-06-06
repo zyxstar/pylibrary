@@ -1,0 +1,166 @@
+CREATE TABLE LIC_READERTYP(
+    readertypcd   char(10)          PRIMARY KEY NOT NULL,
+    insdt         timestamp         NOT NULL,
+    insby         varchar(30)       DEFAULT 'sys' NOT NULL,
+    upddt         timestamp         NOT NULL,
+    updby         varchar(30)       DEFAULT 'sys' NOT NULL,
+    typname       nvarchar(30)      NULL,
+    typquantity   integer           DEFAULT 0 NULL,
+    typdtlimit    integer           DEFAULT 0 NULL,
+    typoverprice  decimal(10, 2)    DEFAULT 0 NULL,
+    typdeposit    decimal(10, 2)    DEFAULT 0 NULL,
+    typborrcat    varchar(2000)     NULL,
+    typrenewtimes integer           DEFAULT 0 NULL,
+    typrenewterm  integer           DEFAULT 0 NULL,
+    typlostpay    decimal(10, 2)    DEFAULT 0 NULL
+);
+CREATE TABLE LIM_BOOKCLS(
+    bookclsid       char(20)          PRIMARY KEY NOT NULL,
+    insdt           timestamp         NOT NULL,
+    insby           varchar(30)       DEFAULT 'sys' NOT NULL,
+    upddt           timestamp         NOT NULL,
+    updby           varchar(30)       DEFAULT 'sys' NOT NULL,
+    clssts          char(10)          DEFAULT '0' NOT NULL,    
+    isbn            char(20)          NULL,
+    bookname        nvarchar(200)     NULL,
+    price           decimal(10, 2)    DEFAULT 0 NULL,
+    pubcd           char(10)          NULL,
+    auth            nvarchar(200)     NULL,
+    catcd           char(10)          NULL
+);
+CREATE INDEX LIM_BOOKCLS_idx1 ON LIM_BOOKCLS(isbn);
+CREATE INDEX LIM_BOOKCLS_idx2 ON LIM_BOOKCLS(bookname);
+CREATE INDEX LIM_BOOKCLS_idx3 ON LIM_BOOKCLS(catcd);
+CREATE INDEX LIM_BOOKCLS_idx4 ON LIM_BOOKCLS(clssts);
+CREATE INDEX LIM_BOOKCLS_idx5 ON LIM_BOOKCLS(auth);
+CREATE TABLE LIM_BOOKINS(
+    bookinsid   char(20)       PRIMARY KEY NOT NULL,
+    insdt       timestamp      NOT NULL,
+    insby       varchar(30)    DEFAULT 'sys' NOT NULL,
+    upddt       timestamp      NOT NULL,
+    updby       varchar(30)    DEFAULT 'sys' NOT NULL,
+    inssts      char(10)       DEFAULT '0' NOT NULL,
+    bookclsid   char(20)       NOT NULL,
+    placecd     char(10)       NULL,
+    readerid    char(10)       NULL
+);
+CREATE INDEX LIM_BOOKINS_idx1 ON LIM_BOOKINS(bookclsid);
+CREATE TABLE LIM_READER(
+    readerid     char(20)          PRIMARY KEY NOT NULL,
+    insdt        timestamp         NOT NULL,
+    insby        varchar(30)       DEFAULT 'sys' NOT NULL,
+    upddt        timestamp         NOT NULL,
+    updby        varchar(30)       DEFAULT 'sys' NOT NULL,
+    readertypcd  char(10)          NOT NULL, 
+    readercardno char(20)          NOT NULL, 
+    readername   nvarchar(30)      NULL,
+    gender       char(1)           NULL,
+    bob          timestamp         NULL,
+    iccd         char(10)          NULL,
+    icno         varchar(30)       NULL,
+    orgcd        char(10)          NULL,
+    tel          varchar(30)       NULL,
+    email        varchar(50)       NULL,
+    deposit      decimal(10, 2)    DEFAULT 0 NULL,
+    quantity     integer           DEFAULT 0 NULL,
+    note         nvarchar(1000)    NULL
+);
+CREATE INDEX LIM_READER_idx1 ON LIM_READER(readername);
+CREATE INDEX LIM_READER_idx2 ON LIM_READER(orgcd);
+CREATE INDEX LIM_READER_idx3 ON LIM_READER(readertypcd);
+CREATE INDEX LIM_READER_idx4 ON LIM_READER(readercardno);
+CREATE TABLE LIM_READERCARD(
+    readercardno    char(20)          PRIMARY KEY NOT NULL,
+    insdt           timestamp         NOT NULL,
+    insby           varchar(30)       DEFAULT 'sys' NOT NULL,
+    upddt           timestamp         NOT NULL,
+    updby           varchar(30)       DEFAULT 'sys' NOT NULL,
+    cardsts         char(10)          DEFAULT '0' NOT NULL,
+    readerid        char(20)          NOT NULL,    
+    issdt           timestamp         NULL,
+    expdt           timestamp         NULL,
+    canceldt        timestamp         NULL,
+    operator        varchar(30)       NULL,
+    note            nvarchar(1000)    NULL
+);
+CREATE INDEX LIM_READERCARD_idx1 ON LIM_READERCARD(readerid);
+
+CREATE TABLE LIT_BORRHIS(
+    borrhisid     char(36)          PRIMARY KEY NOT NULL,
+    insdt         timestamp         NOT NULL,
+    insby         varchar(30)       DEFAULT 'sys' NOT NULL,
+    upddt         timestamp         NOT NULL,
+    updby         varchar(30)       DEFAULT 'sys' NOT NULL,
+    readerid      char(20)          NOT NULL,
+    readercardno  char(20)          NOT NULL,   
+    bookinsid     char(20)          NOT NULL,
+    borrdt        timestamp         NULL,
+    borrexpdt     timestamp         NULL,
+    renewtimes    integer           DEFAULT 0 NULL,
+    retdt         timestamp         NULL,
+	overdays      integer           DEFAULT 0 NULL,
+    overprice     decimal(10, 2)    DEFAULT 0 NULL,
+	overpaycd     char(10)          NULL,
+    defaceprice   decimal(10, 2)    DEFAULT 0 NULL,
+	defacepaycd   char(10)          NULL,
+	defacenote    nvarchar(1000)    NULL,
+    lostprice     decimal(10, 2)    DEFAULT 0 NULL,
+	lostpaycd     char(10)          NULL,
+	lostnote      nvarchar(1000)    NULL
+);
+CREATE INDEX LIT_BORRHIS_idx1 ON LIT_BORRHIS(readerid);
+CREATE INDEX LIT_BORRHIS_idx2 ON LIT_BORRHIS(bookinsid);
+CREATE INDEX LIT_BORRHIS_idx3 ON LIT_BORRHIS(readercardno);
+CREATE TABLE LIT_BORRLOG(
+    borrlogid    integer PRIMARY KEY AUTOINCREMENT,
+    insdt        timestamp         NOT NULL,
+    insby        varchar(30)       DEFAULT 'sys' NOT NULL,
+	borrhisid    char(36)          NULL,
+    readercardno char(20)          NULL,	
+    readerid     char(20)          NULL,
+    readername   nvarchar(30)      NULL,
+    bookinsid    char(20)          NULL,
+    bookclsid    char(20)          NULL,
+    bookname     nvarchar(200)     NULL,
+    actcd        char(10)          NULL,
+	actval       decimal(10, 2)    DEFAULT 0 NULL,
+	paycd        char(10)          NULL,
+    note         nvarchar(1000)    NULL
+);
+CREATE INDEX LIT_BORRLOG_idx1 ON LIT_BORRLOG(insdt);
+CREATE INDEX LIT_BORRLOG_idx2 ON LIT_BORRLOG(insby);
+CREATE INDEX LIT_BORRLOG_idx3 ON LIT_BORRLOG(readercardno);
+CREATE INDEX LIT_BORRLOG_idx4 ON LIT_BORRLOG(readerid);
+CREATE INDEX LIT_BORRLOG_idx5 ON LIT_BORRLOG(actcd);
+CREATE INDEX LIT_BORRLOG_idx6 ON LIT_BORRLOG(borrhisid);
+CREATE TABLE LIT_BORRNOW(
+    bookinsid     char(20)       PRIMARY KEY NOT NULL,
+    insdt         timestamp      NOT NULL,
+    insby         varchar(30)    DEFAULT 'sys' NOT NULL,
+    upddt         timestamp      NOT NULL,
+    updby         varchar(30)    DEFAULT 'sys' NOT NULL,
+    readerid      char(20)       NOT NULL,
+    readercardno  char(20)       NOT NULL,    
+    borrdt        timestamp      NULL,
+    borrexpdt     timestamp      NULL,
+    renewtimes    integer        DEFAULT 0 NULL
+);
+CREATE INDEX LIT_BORRNOW_idx1 ON LIT_BORRNOW(readerid);
+CREATE INDEX LIT_BORRNOW_idx3 ON LIT_BORRNOW(readercardno);
+CREATE TABLE SYC_REFCD( 
+    grp      varchar(30)       NOT NULL,
+    cd       varchar(30)       NOT NULL,
+    insdt    timestamp         NOT NULL,
+    insby    varchar(30)       DEFAULT 'sys' NOT NULL,
+    upddt    timestamp         NOT NULL,
+    updby    varchar(30)       DEFAULT 'sys' NOT NULL,
+    recsts   char(10)          DEFAULT '0' NOT NULL, 
+    sdesc    nvarchar(200)     NOT NULL,
+    fdesc    nvarchar(1000)    NULL,
+    var1     nvarchar(200)     NULL,
+    var2     nvarchar(200)     NULL,
+    var3     nvarchar(200)     NULL,
+    ordseq   decimal(10, 2)    NULL,
+    CONSTRAINT PK_bookcls PRIMARY KEY (grp,cd)
+);
+

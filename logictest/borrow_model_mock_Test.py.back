@@ -1,0 +1,218 @@
+import unittest
+import datetime
+import mock
+import sys
+sys.path.append(r"F:\eclipsWorkSpace\pylibrary")
+#sys.path.append(r"F:\eclipsWorkSpace\pylibrary\logic")
+#sys.path.append(r"F:\eclipsWorkSpace\pylibrary\logictest")
+
+#sys.path.append(r"D:\eclipseWorkSpace\pylibrary")
+#sys.path.append(r"D:\eclipseWorkSpace\pylibrary\logic")
+#sys.path.append(r"D:\eclipseWorkSpace\pylibrary\logictest")
+
+from logic import borrow_model
+#import logic
+#import logic.borrow_model as borrow_model  #can use reload to restore the module
+from mock import patch
+
+class BorrowModelTest1(unittest.TestCase):
+    def setUp(self):
+#        self.reader_op = borrow_model.reader_op
+#        self.book_op = borrow_model.book_op
+#        self.borrow_op = borrow_model.borrow_op
+        pass
+
+    def test_prepare(self):
+        operator = "Admin"
+        readercardno = "C1"
+        readerid = "R1"
+        readertypcd = "T1"
+
+        readercardmock = mock.Mock()
+        readercardmock.readerid = readerid
+
+        readermock = mock.Mock()
+        readermock.readertypcd = readertypcd
+
+        readertypmock = mock.Mock()
+        op = mock.Mock()
+
+        op.get_readercard.return_value = readercardmock
+        op.get_reader.return_value = readermock
+        op.get_readertyp.return_value = readertypmock
+
+#        print borrow_model.reader_op
+        @patch.object(borrow_model, 'reader_op', op)
+        def test():
+#            print borrow_model.reader_op
+            m = borrow_model.BorrowModel()
+            m.prepare(operator, readercardno)
+
+            op.get_readercard.assert_called_once_with(readercardno)
+            op.get_reader.assert_called_once_with(readerid)
+            op.get_readertyp.assert_called_once_with(readertypcd)
+
+            self.assertEquals(m.operator, operator)
+            self.assertEquals(m.readercard, readercardmock)
+            self.assertEquals(m.reader, readermock)
+            self.assertEquals(m.readertyp, readertypmock)
+        test()
+#        print borrow_model.reader_op
+
+    def test_check_readercard(self):
+        m = borrow_model.BorrowModel()
+        m.readercard = mock.Mock()
+        m.readercard.recsts = "1"
+        self.assertFalse(m.check_readercard())
+
+        m.readercard.recsts = "0"
+        m.readercard.expdt = datetime.datetime.now() - datetime.timedelta(days = 1)
+        self.assertFalse(m.check_readercard())
+
+        m.readercard.expdt = datetime.datetime.now() + datetime.timedelta(days = 1)
+        self.assertTrue(m.check_readercard())
+
+    def test_check_reader(self):
+        m = borrow_model.BorrowModel()
+        m.reader = mock.Mock()
+        m.reader.quantity = 0
+        self.assertFalse(m.check_reader(1))
+
+        m.reader.quantity = 1
+        m.reader.deposit = 10
+        m.readertyp = mock.Mock()
+        m.readertyp.deposit = 100
+        self.assertFalse(m.check_reader(1))
+
+        m.reader.deposit = 100
+        self.assertTrue(m.check_reader(1))
+
+    def test_check_overdue(self):
+        op = mock.Mock()
+        op.query_borrnow.return_value = []
+
+        m = borrow_model.BorrowModel()
+        m.reader = mock.Mock()
+        m.reader.id = "R1"
+
+        with patch.object(borrow_model, 'borrow_op', op):
+            self.assertFalse(m.check_overdue())
+            op.query_borrnow.assert_called_once_with("R1")
+
+            borrnow1 = mock.Mock()
+            borrnow1.expdt = datetime.datetime.now() + datetime.timedelta(days = 1)
+            op.query_borrnow.return_value = [borrnow1]
+            self.assertFalse(m.check_overdue())
+
+            borrnow2 = mock.Mock()
+            borrnow2.expdt = datetime.datetime.now() - datetime.timedelta(days = 1)
+            op.query_borrnow.return_value = [borrnow1, borrnow2]
+            self.assertTrue(m.check_overdue())
+
+    def test_check_borrcat(self):
+
+        bookcls = mock.Mock()
+        bookcls.catcd = "A1"
+
+        op = mock.Mock()
+        op.can_borrow.return_value = True
+
+        with patch.object(borrow_model, 'reader_op', op):
+            m = borrow_model.BorrowModel()
+            m.readertyp = mock.Mock()
+            m.readertyp.borrcat = "A1,A2"
+
+            self.assertTrue(m.check_borrcat(bookcls))
+            op.can_borrow.assert_called_once_with("A1", "A1,A2")
+
+            op.can_borrow.return_value = False
+            self.assertFalse(m.check_borrcat(bookcls))
+
+    def test_check_book(self):
+        m = borrow_model.BorrowModel()
+        bookins = mock.Mock()
+        bookins.recsts = "0"
+        self.assertTrue(m.check_book(bookins))
+        bookins.recsts = "1"
+        self.assertFalse(m.check_book(bookins))
+
+    def test_borrow(self):
+        bookinsid = "BI1"
+        operator = "Admin"
+        bookins = mock.Mock()
+        bookins.bookclsid = "BC1"
+        
+        bookcls = mock.Mock()
+        reader = mock.Mock()
+        readertyp = mock.Mock()
+
+        m = borrow_model.BorrowModel()
+        m.reader = reader
+        m.readertyp = readertyp
+        m.operator = operator
+
+        m.check_readercard = mock.Mock()
+        m.check_readercard.return_value = False
+        self.assertFalse(m.borrow(bookinsid))
+        m.check_readercard.assert_any_call()
+
+        m.check_readercard.return_value = True
+        m.check_reader = mock.Mock()
+        m.check_reader.return_value = False
+        self.assertFalse(m.borrow(bookinsid))
+        m.check_reader.assert_any_call()
+
+        m.check_reader.return_value = True
+        m.check_overdue = mock.Mock()
+        m.check_overdue.return_value = True
+        self.assertFalse(m.borrow(bookinsid))
+        m.check_overdue.assert_any_call()
+
+        m.check_overdue.return_value = False
+
+        book_op = mock.Mock()
+        book_op.get_bookins.return_value = bookins
+        book_op.get_bookcls.return_value = bookcls
+
+        borrow_op = mock.Mock()
+
+        @patch.object(borrow_model, 'book_op', book_op)
+        @patch.object(borrow_model, 'borrow_op', borrow_op)
+        def test():
+            m.check_borrcat = mock.Mock()
+            m.check_borrcat.return_value = False
+
+            self.assertFalse(m.borrow(bookinsid))
+            m.check_borrcat.assert_called_with(bookcls)
+            book_op.get_bookins.assert_called_with(bookinsid)
+            book_op.get_bookcls.assert_called_with(bookins.bookclsid)
+
+            m.check_borrcat.return_value = True
+            m.check_book = mock.Mock()
+            m.check_book.return_value = False
+
+            self.assertFalse(m.borrow(bookinsid))
+            m.check_book.assert_called_with(bookins)
+
+            m.check_book.return_value = True
+
+            self.assertTrue(m.borrow(bookinsid))
+            borrow_op.borrow.assert_called_once_with(operator, reader, readertyp, bookins, bookcls)
+        test()
+
+    def tearDown(self):
+#        borrow_model.reader_op = self.reader_op
+#        borrow_model.book_op = self.book_op
+#        borrow_model.borrow_op = self.borrow_op
+#        import logic
+#        reload(logic.borrow_model)
+        pass
+
+if __name__ == '__main__':
+#    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(BorrowModelTest1)
+    unittest.TextTestRunner(verbosity = 2).run(suite)
+
+
+
+

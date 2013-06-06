@@ -1,0 +1,30 @@
+﻿<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        window.panelReader = new PanelReader2(function (reader, borrnow) {
+            addRow(reader, borrnow);
+        });
+
+        function getReader() {
+            complib.getInput('#search_readercardno', function (readercardno) {
+                panelReader.getReader(readercardno);
+            });
+        }
+        function resetReader() {
+            panelReader.clear();
+            $('#search_readercardno').val('');
+            $('#search_readercardno').removeAttr("disabled");
+
+            window.location.reload();
+        }
+        $('#search_readercardno').focus();
+        $('#search_readercardno').keydown(function (event) {
+            if (event.keyCode == 13) {
+                getReader();
+            }
+        });
+        $('#btn_getreader').bind('click', getReader);
+        $('#btn_resetreader').bind('click', resetReader);
+
+        window.done = resetReader;
+    });  
+</script>

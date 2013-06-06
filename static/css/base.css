@@ -1,0 +1,57 @@
+@import url(reset.css);
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial, "宋体";
+    background: #FCFAF8;
+    line-height: 20px;
+    color: #353030;
+    position: relative;
+}
+a:link, a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:active, a:focus {
+    outline: none;
+    hide-focus: expression(this.hideFocus=true);
+}
+img {
+    vertical-align: middle;
+}
+li {
+    list-style: none;
+}
+table {
+    border-collapse: collapse;
+}
+.clear {
+    clear: both;
+    font-size: 1px;
+    height: 0px;
+}
+
+.wrap {
+    width: 990px;
+    text-align: left;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+
+hr {
+    clear: both;
+    font-size: 1px;
+    height: 0px;
+}
+
+
+
+
+
+
+

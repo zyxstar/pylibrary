@@ -1,0 +1,28 @@
+﻿<ul class="sf-menu">
+    <li><a href="#">设备管理</a>
+        <ul>
+            <li><a href='/borrow/borrow'>设备绑定</a></li>
+            <li><a href='/borrow/giveback'>设备解绑</a></li>
+            <li><a href='/borrow/renew'>设备重启</a></li>
+            <li><a href='/borrow/lost'>设备挂失</a></li>
+        </ul>
+    </li>
+    <li><a href="#">健康报表</a>
+        <ul>
+            <li><a href='#'>borrow</a>
+                <ul>
+                    <li><a href='/borrow/borrow'>borrow</a></li>
+                    <li><a href='/borrow/giveback'>giveback</a></li>
+                    <li><a href='/borrow/renew'>renew</a></li>
+                </ul>
+            </li>
+            <li><a href='/borrow/giveback'>giveback</a></li>
+            <li><a href='/borrow/renew'>renew</a></li>
+        </ul>
+    </li>
+</ul>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('ul.sf-menu').superfish();
+    });
+</script>

@@ -1,0 +1,101 @@
+<div class="table-wrapper">
+    <table id="borrnow_table" width="100%">
+        <thead>
+            <tr>
+                <th class="table-header light">
+                    bookinsid
+                </th>
+                <th class="table-header light">
+                    bookclsid
+                </th>
+                <th class="table-header light">
+                    bookname
+                </th>
+                <th class="table-header light">
+                    auth
+                </th>
+                <th class="table-header light">
+                    isbn
+                </th>
+                <th class="table-header light">
+                    pub
+                </th>
+                <th class="table-header light">
+                    borrdt
+                </th>
+                <th class="table-header light">
+                    borrexpdt
+                </th>
+                <th class="table-header light">
+                    overdays
+                </th>
+                <th class="table-header light">
+                    typoverprice
+                </th>
+                <th class="table-header light">
+                    overprice
+                </th>
+                <th class="table-header light">
+                    op
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        function addRow(reader, borrnow) {
+            var tr = document.createElement("tr");
+            tr.id = "tr_" + borrnow.bookinsid;
+            tr.className = "table-row";
+            $(tr).data("borrnow", borrnow);
+
+            bindTr(tr, borrnow);
+
+            var td_lost = complib.createTdBtn("btn_lost_" + borrnow.bookinsid, "丢失", function () {
+                render_lost(reader, borrnow);
+            });
+            $(td_lost).addClass("center");
+            tr.appendChild(td_lost);
+
+            $("#borrnow_table tbody").append(tr);
+        }
+
+        function bindTr(tr, borrnow) {
+            var f = complib.floatFormat;
+            var s = complib.stringFormat;
+            var b = complib.boolFormat;
+            var d = complib.dateFormat;
+            var m = complib.moneyFormat;
+            var v_borrexpdt = function (obj) { return obj.notborrexp_c; };
+            var v_overdays = function (obj) { return obj.overdays_c <= 0; };
+
+            var descs = [
+                { bookinsid: [s, null, null] }, { bookclsid: [s, null, null] }, { bookname: [s, null, null] },
+                { auth: [s, null, null] }, { isbn: [s, null, null] }, { pubcd_r: [s, null, null] },
+                { borrdt: [d, null, null] }, { borrexpdt: [d, null, v_borrexpdt] }, { overdays_c: [s, "right", v_overdays] },
+                { typoverprice_c: [m, "right", null] }, { overprice_c: [m, "right", v_overdays] }
+            ];
+            complib.appendTdArr(tr, borrnow, "bookinsid", descs);
+        }
+
+        function render_lost(reader, borrnow) {
+            $.jBox.open('iframe:/borrow/lost?' + $.param({ act: "dialog", bookinsid: borrnow.bookinsid }),
+                "丢失处理", 600, 320, { buttons: { "取消": false} });
+        }
+
+        window.addRow = addRow;
+        window.close_dialog = function (bookinsid, paycd) {
+            $.jBox.close(true);
+            complib.chgTdStatus($("#btn_lost_" + bookinsid).parent("td")[0], "ok");
+            if (paycd == 'ACC')
+                panelReader.decrease_acc(getBorrnow(bookinsid).sumprice_c);
+        };
+        window.getBorrnow = function (bookinsid) {
+            return $("#tr_" + bookinsid).data("borrnow");
+        };
+
+    });
+</script>

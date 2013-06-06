@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<%!
+	import datetime
+%>
+<%
+    for entity in data:
+        if entity!=None:
+            context.write(" <R ")
+            for k,v in entity.items():
+            	if isinstance(v,datetime.datetime):v=v.strftime("%Y-%m-%d %H:%M:%S")
+            	if isinstance(v,float):v="%.2f" % v
+            	if v==None:context.write('%s="" '%(k,))
+                else:context.write('%s="%s" '%(k,v))
+            context.write("/>\r\n")
+%>
+</root>

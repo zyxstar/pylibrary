@@ -1,0 +1,54 @@
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        var panelReader = new PanelReader();
+        var panelBook = new PanelBook(function (borrnow) {
+            addRow(borrnow);
+        });
+
+        panelReader.panelBook = panelBook;
+        panelBook.panelReader = panelReader;
+
+        function getReader() {
+            complib.getInput('#search_readercardno', function (readercardno) {
+                panelReader.getReader(readercardno);
+            });
+        }
+        function resetReader() {
+            panelReader.clear();
+            $('#search_readercardno').val('');
+            $('#search_readercardno').removeAttr("disabled");
+
+            window.location.reload();
+        }
+        $('#search_readercardno').focus();
+        $('#search_readercardno').keydown(function (event) {
+            if (event.keyCode == 13) {
+                getReader();
+            }
+        });
+        $('#btn_getreader').bind('click', getReader);
+        $('#btn_resetreader').bind('click', resetReader);
+
+        panelBook.reset();
+        function postBorrnow() {
+            complib.getInput('#search_bookinsid', function (bookinsid) {
+                panelBook.postBorrnow(bookinsid);
+            });
+        }
+        function clearBook() {
+            panelBook.clear();
+            $('#search_bookinsid').val('');
+            try {
+                $('#search_bookinsid').focus();
+            } catch (e) { }
+        }
+        $('#search_bookinsid').keydown(function (event) {
+            if (event.keyCode == 13) {
+                postBorrnow();
+            }
+        });
+        $('#btn_getbook').bind('click', postBorrnow);
+        $('#btn_clearbook').bind('click', clearBook);
+        window.done = resetReader;
+    });  
+</script>

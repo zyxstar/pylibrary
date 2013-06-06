@@ -1,0 +1,24 @@
+<project name="pylibrary" default="explorer">
+	<taskdef resource="pyAntTasks.properties"/>
+	<property name="logic.dir" value="logic"/>
+	<property name="logictest.dir" value="logictest"/>
+	<target name="compile">
+		<py-compile dir="${logic.dir}" pythonpath="${logic.dir}" optimize="0"/>
+	</target>
+	<target name="tests" depends="compile">
+		<py-test pythonpath="${logictest.dir}" dir=".">
+			<fileset dir="${logictest.dir}">
+				<include name="**/*Test.py"/>
+			</fileset>
+		</py-test>
+	</target>
+	<target name="coverage" depends="compile">
+		<exec dir="${logictest.dir}" executable="runcoverage.bat">
+	 	</exec>
+	</target>
+	<target name="explorer" depends="coverage">
+		<exec dir="${logictest.dir}" executable="explorer.exe">
+			<arg value="htmlcov"/>
+		</exec>
+	</target>
+</project>

@@ -1,0 +1,22 @@
+﻿<%inherit file="base.html"/>
+<%block name="title"></%block>
+<%block name="head">
+  ${parent.head()}
+  ${self.css("main.css")}
+  ${self.css('superfish.css')}
+  ${self.js("com/hoverIntent.js")}
+  ${self.js("com/superfish.js")}
+</%block>
+
+<div id="head">
+居家健康管理方案
+</div>
+<div id="menu">
+<%include file="menu.html"/>
+</div>
+<p class="clear"></p>
+
+${next.body(**context.kwargs)}
+
+<hr style="margin-top:20px"/>
+<%include file="footer.html"/>

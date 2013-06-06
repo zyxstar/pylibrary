@@ -1,0 +1,16 @@
+
+%for attr in attrs:
+ <div>
+  <label id="lab_${attr}" for="txt_${attr}">${attr}</label>
+  <input type="text" id="txt_${attr}" readonly="readonly" />
+ </div>
+%endfor
+
+%for attr in attrs:
+$('#txt_${attr}').val(book.${attr});
+%endfor 
+
+%for attr in attrs:
+$('#txt_${attr}').val('');
+%endfor 
+ 

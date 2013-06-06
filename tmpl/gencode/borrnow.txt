@@ -1,0 +1,3 @@
+%for attr in attrs:
+<mx:DataGridColumn headerText="${attr}" dataField="@${attr}"/>
+%endfor

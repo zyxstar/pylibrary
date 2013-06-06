@@ -1,0 +1,15 @@
+﻿<%inherit file="main.html"/>
+<%block name="title"></%block>
+<%block name="head">
+  ${parent.head()}
+  ${self.css('borrow.css')}
+</%block>
+
+<%include file="reader.html"/>
+<%include file="lost_1.html"/>
+<%include file="done.html"/>
+
+${self.js('lib/PanelReader.js')}
+${self.js('lib/PanelReader2.js')}
+
+<%include file="lost_0.html"/>

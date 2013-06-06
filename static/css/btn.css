@@ -1,0 +1,79 @@
+.btn:hover {
+background-color: #8EC023;
+border-top: #DBFF8E;
+border-right: 1px solid #65A32E;
+border-bottom: 1px solid #6B9A20;
+border-left: 1px solid #65A32E;
+cursor: pointer;
+text-shadow: 0 -1px 1px #458505;
+-webkit-background-clip: padding-box;
+background-color: #70AE00;
+background-image: -o-linear-gradient(#95d622, #70ae00);
+background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #70ae00), color-stop(1, #95d622));
+background-image: -moz-linear-gradient(center bottom, #70ae00 0%, #95d622 100%);
+-webkit-box-shadow: 0 1px 0 0 #a6e05b inset,0 1px 2px 0 rgba(0,0,0,0.2);
+-moz-box-shadow: 0 1px 0 0 #a6e05b inset,0 1px 2px 0 rgba(0,0,0,0.2);
+box-shadow: 0 1px 0 0 #a6e05b inset,0 1px 2px 0 rgba(0,0,0,0.2);
+border: 1px solid #588C15;
+}
+
+.btn:active {
+background: #98D332;
+border: 1px solid #588C15;
+/*border-bottom: 1px solid #508E0E;
+text-shadow: 0 -1px 1px #63A423;
+-webkit-background-clip: padding-box;
+-webkit-box-shadow: 0 0 6px 3px #68b516 inset,0 1px 0 0 #000;
+-moz-box-shadow: 0 0 6px 3px #68b516 inset,0 1px 0 0 #000;
+box-shadow: 0 0 6px 3px #68b516 inset,0 1px 0 0 #000;*/
+}
+
+.btn {
+font-family: "ProximaNovaRegular","Helvetica Neue",Helvetica,Arial,sans-serif;
+font-size: 13px;
+background-color: #8FB209;
+border-top: #DBFF8E;
+border-right: 1px solid #65A32E;
+border-bottom: 1px solid #6B9A20;
+border-left: 1px solid #65A32E;
+color: white!important;
+padding: 1px 2px;
+border: 1px solid #588C15;
+margin: 0 -2px 0 0;
+text-align: center;
+text-shadow: 0 -1px 1px #4E9409;
+-webkit-background-clip: padding-box;
+-moz-border-radius: 3px 3px 3px 3px;
+-webkit-border-radius: 3px 3px 3px 3px;
+border-radius: 3px 3px 3px 3px;
+background-color: #75B600;
+background-image: -o-linear-gradient(#9bdc27, #75b600);
+background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #75b600), color-stop(1, #9bdc27));
+background-image: -moz-linear-gradient(center bottom, #75b600 0%, #9bdc27 100%);
+-webkit-box-shadow: 0 1px 0 0 #a6e95b inset,0 1px 2px 0 rgba(0,0,0,0.3);
+-moz-box-shadow: 0 1px 0 0 #a6e95b inset,0 1px 2px 0 rgba(0,0,0,0.3);
+box-shadow: 0 1px 0 0 #a6e95b inset,0 1px 2px 0 rgba(0,0,0,0.3);
+-o-transition: none 0.3s ease-in-out 0s;
+-webkit-transition: none 0.3s ease-in-out 0s;
+-moz-transition: none 0.3s ease-in-out 0s;
+}
+
+.big
+{
+      font-size: 16px; 
+      padding: 5px 10px;
+       
+}
+
+input[disabled].btn:hover,input[disabled].btn:active,input[disabled].btn{
+	border: 1px solid #999;
+	background-color: #ddd;
+	color: GrayText;
+	background-image:none;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+	text-shadow:none;
+	
+	
+}

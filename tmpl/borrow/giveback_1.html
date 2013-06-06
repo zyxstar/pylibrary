@@ -1,0 +1,164 @@
+<div class="table-wrapper">
+    <table id="borrhis_table" width="100%">
+        <thead>
+            <tr>
+                <th class="table-header light">
+                    bookinsid
+                </th>
+                <th class="table-header light">
+                    bookname
+                </th>
+                <th class="table-header light">
+                    auth
+                </th>
+                <th class="table-header light">
+                    readercardno
+                </th>
+                <th class="table-header light">
+                    readername
+                </th>
+                <th class="table-header light">
+                    orgcd_r
+                </th>
+                <th class="table-header light">
+                    borrdt
+                </th>
+                <th class="table-header light">
+                    borrexpdt
+                </th>
+                <th class="table-header light">
+                    overdays
+                </th>
+                <th class="table-header light">
+                    typover
+                </th>
+                <th class="table-header light">
+                    overprice
+                </th>
+                <th class="table-header light">
+                    支付
+                </th>
+                <th class="table-header light">
+                    op1
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="summary">
+        <strong>超期现金合计:<label style="color: #DE564B;" id="sum_cash">￥0.00</label></strong>
+        <strong>超期记账合计:<label style="color: #DE564B;" id="sum_acc">￥0.00</label></strong>
+        <strong>超期总合计:<label style="color: #DE564B;" id="sum_overprice">￥0.00</label></strong></div>
+</div>
+<div id="deface_dialog" style="display: none">
+    <label for="defaceprice" style="margin: 5px 5px 0px 5px">
+        污损罚金:</label>
+    <input type="text" id="defaceprice" name="defaceprice" style="width: 200px; margin: 5px 5px 0px 5px"
+        value="0.00" /><br />
+    <label for="defacenote" style="margin: 5px 5px -5px 5px">
+        污损备注:</label>
+    <textarea cols="20" rows="3" id="defacenote" name="defacenote" style="width: 202px;
+        margin: 5px 5px -2px 5px"></textarea><br />
+</div>
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+        var sum_overprice = 0;
+        var sum_cash = 0;
+        var sum_acc = 0;
+
+        function addRow(borrhis) {
+            var tr = document.createElement("tr");
+            tr.id = "tr_" + borrhis.borrhisid;
+            tr.className = "table-row";
+            bindTr(tr, borrhis);
+
+            if (borrhis.overprice > 0) {
+                var td_overdue = document.createElement("td");
+                $(td_overdue).html(" ");
+                tr.appendChild(td_overdue);
+
+                render_overdue(borrhis, td_overdue);
+            }
+            else {
+                tr.appendChild(complib.createTdText(""));
+            }
+
+            var td_deface = complib.createTdBtn("btn_deface_" + borrhis.borrhisid, "污损", function () {
+                render_deface(borrhis, td_deface);
+            });
+            $(td_deface).addClass("center");
+            tr.appendChild(td_deface);
+
+
+            $("#borrhis_table tbody").append(tr);
+        }
+
+        function bindTr(tr, borrhis) {
+            var f = complib.floatFormat;
+            var s = complib.stringFormat;
+            var b = complib.boolFormat;
+            var d = complib.dateFormat;
+            var m = complib.moneyFormat;
+            var v_overdays = function (obj) {return obj.overdays <= 0;};
+         
+            var descs = [
+                { bookinsid: [s, null, null] }, { bookname: [s, null, null] }, { auth: [s, null, null] },
+                { readercardno: [s, null, null] }, { readername: [s, null, null] }, { orgcd_r: [s, null, null] },
+                { borrdt: [d, null, null] }, { borrexpdt: [d, null, v_overdays] }, { overdays: [s, "right", v_overdays] },
+                { typoverprice: [m, "right", null] }, { overprice: [m, "right", v_overdays] }
+            ];
+            complib.appendTdArr(tr, borrhis, "borrhisid", descs);
+        }
+
+        function render_overdue(borrhis, td_overdue) {
+            var submit = function (v, h, f) {
+                if (v == true) {
+                    $(td_overdue).html("现金");
+                    sum_cash += borrhis.overprice;
+                    sum_overprice += borrhis.overprice;
+                    $("#sum_cash").html(complib.moneyFormat(sum_cash));
+                    $("#sum_overprice").html(complib.moneyFormat(sum_overprice));
+                }
+                else {
+                    $(td_overdue).html("记账");
+                    sum_acc += borrhis.overprice;
+                    sum_overprice += borrhis.overprice;
+                    $("#sum_acc").html(complib.moneyFormat(sum_acc));
+                    $("#sum_overprice").html(complib.moneyFormat(sum_overprice));
+                }
+                complib.xhr("/borrow/giveback", 'POST',
+                { act: 'overdue', borrhisid: borrhis.borrhisid, paycd: v ? "CASH" : "ACC",
+                    readername: borrhis.readername, bookclsid: borrhis.bookclsid, bookname: borrhis.bookname
+                });
+                return true;
+            };
+
+            $.jBox.confirm("请选择罚款支付方式？", "超期罚款", submit, { buttons: { '现金': true, '记账': false }, closed: function () {
+                $('#search_bookinsid').focus();
+            }
+            });
+            $("a.jbox-close").hide();
+        }
+
+        function render_deface(borrhis, td_deface) {
+            var submit = function (v, h, f) {
+                var defaceprice = parseFloat(f.defaceprice)
+                if (isNaN(defaceprice) || defaceprice < 0) {
+                    return false;
+                }
+                complib.xhr("/borrow/giveback", 'POST',
+                { act: 'deface', borrhisid: borrhis.borrhisid, price: defaceprice, paycd: v, note: f.defacenote,
+                    readername: borrhis.readername, bookclsid: borrhis.bookclsid, bookname: borrhis.bookname
+                });
+                complib.chgTdStatus(td_deface, "ok");
+                return true;
+            };
+
+            $.jBox.open('id:deface_dialog', "污损处理", 300, 160, { submit: submit, buttons: { '现金': "CASH", '记账': "ACC"} });
+        }
+
+        window.addRow = addRow;
+    });
+</script>
